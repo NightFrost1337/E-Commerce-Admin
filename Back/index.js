@@ -25,9 +25,9 @@ mongoose.connect(process.env.MONGO_URL)
 
 const base_route = '/api/v1';
 
-const usersRoutes = require('./routes/users');
-const authRoutes = require('./routes/auth');
-app.use(base_route + '/users', usersRoutes);
+const meRoutes = require('./pages/me');
+const authRoutes = require('./pages/auth');
+app.use(base_route + '/me', meRoutes);
 app.use(base_route + '/auth', authRoutes);
 
 process

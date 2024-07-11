@@ -1,5 +1,6 @@
+import { Link } from 'react-router-dom';
 import { Moon, Sun } from "lucide-react";
-import { useAuth } from "@/lib/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -17,7 +18,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Store, Users, LockKeyhole, Settings, LogOut } from "lucide-react";
-import { useTheme } from "@/components/theme-provider";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Header() {
 	const { user } = useAuth();
@@ -25,14 +26,30 @@ export default function Header() {
 
     return (
 		<div className="bg-background h-16 w-full border-b flex justify-between items-center py-4 px-6">
-			<Select className="flex items-center gap-3 cursor-pointer">
-				<SelectTrigger className="w-[180px] bg-transparent">
-					<SelectValue placeholder="Select a Shop" />
-				</SelectTrigger>
-				<SelectContent>
-					<SelectItem value="store"><Store className={'w-4 h-4'} />Store 1</SelectItem>
-				</SelectContent>
-			</Select>
+			<div className="flex items-center gap-8">
+				<Select className="flex items-center gap-3 cursor-pointer">
+					<SelectTrigger className="w-[180px] bg-transparent">
+						<SelectValue placeholder="Select a Shop" />
+					</SelectTrigger>
+					<SelectContent>
+						<SelectItem value="store">
+							<div className="flex items-center gap-2 py-1 cursor-pointer">
+								<Store className={'block w-5 h-5'} />
+								<span>Store 1</span>
+							</div>
+						</SelectItem>
+					</SelectContent>
+				</Select>
+				<div className="flex justify-start items-center space-x-8">
+					<Link to="/dashboard">Overview</Link>
+					<Link to="/billsboard">Billsboard</Link>
+					<Link to="/categories">Categories</Link>
+					<Link to="/sizes">Sizes</Link>
+					<Link to="/colors">Colors</Link>
+					<Link to="/products">Products</Link>
+					<Link to="/orders">Orders</Link>
+				</div>
+			</div>
 			<div className="flex items-center gap-6">
 				{theme === 'dark' ? <Moon className="cursor-pointer" onClick={() => setTheme('light')} /> : <Sun className="cursor-pointer" onClick={() => setTheme('dark')} />}
 				<DropdownMenu>

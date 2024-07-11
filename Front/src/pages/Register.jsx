@@ -36,7 +36,7 @@ export default function Register() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center w-full h-screen py-8 bg-background text-black">
+        <div className="flex flex-col items-center justify-center w-full h-screen py-8">
             <div className="flex flex-col items-center justify-center w-full max-w-96">
                 <h1 className="text-center text-4xl font-extrabold">Register</h1>
                 {error ? <p className="text-red-500 mt-10">{error}</p> : null}
