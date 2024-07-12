@@ -4,9 +4,9 @@ export default function Layout({ children }) {
     return (
         <div className="flex flex-col h-screen overflow-hidden">
             <Header />
-            <div className="p-6 bg-background overflow-y-auto md:px-10">
+            <main className="w-full bg-background p-6 sm:p-12 overflow-y-auto">
                 {children}
-            </div>
+            </main>
         </div>
     );
 }

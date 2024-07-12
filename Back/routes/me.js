@@ -1,11 +1,10 @@
 const { Router } = require('express');
 const router = Router();
 
-const { getMe, getShops } = require('../controllers/me');
+const { getMe } = require('../controllers/me');
+const shopsRouter = require('./shops');
 
-const authMiddleware = require('../middleware/auth');
-
-router.get('/', authMiddleware, getMe)
-router.get('/shops', authMiddleware, getShops);
+router.get('/', getMe)
+router.use('/shops', shopsRouter);
 
 module.exports = router;

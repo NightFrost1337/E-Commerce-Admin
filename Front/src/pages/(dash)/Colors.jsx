@@ -3,9 +3,9 @@ import useSWR from 'swr';
 import Dash from '@/components/Dash';
 import CreateShop from '@/components/CreateShop';
 import { useAuth } from "@/hooks/useAuth";
-import { BASE_API } from "../../config.json";
+import { BASE_API } from "@/config.json";
 
-export default function Dashboard() {
+export default function Colors() {
     const { user, shops, updateShops } = useAuth();
 
     const fetcher = (url) => fetch(url, { 
@@ -17,7 +17,7 @@ export default function Dashboard() {
     return (
         <>
             <div className="flex flex-col justify-start h-screen">
-                <h1 className="text-3xl font-bold">Dashboard</h1>
+                <h1 className="text-3xl font-bold">Colors</h1>
                 <p className="mb-6">Welcome {user.username}</p>
                 <hr />
                 {Array.isArray(shops) && shops.length ? <Dash shops={shops} /> : <CreateShop />}

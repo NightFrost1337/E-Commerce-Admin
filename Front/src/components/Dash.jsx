@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from "@/hooks/useAuth";
-import { Bar, BarChart, CartesianGrid } from "recharts";
-import { ChartContainer } from "@/components/ui/chart";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 
 import {
   Card,
@@ -72,13 +72,27 @@ export default function Dash() {
                     </CardContent>
                 </Card>
             </div>
-            <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-                <BarChart accessibilityLayer data={chartData}>
-                    <CartesianGrid vertical={false} />
-                    <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-                    <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
-                </BarChart>
-            </ChartContainer>
+            <Card className="mt-4">
+                <CardHeader>
+                    <CardTitle>Sales overview</CardTitle>
+                </CardHeader>
+                <ChartContainer config={chartConfig} className="max-h-[400px] w-full">
+                    <BarChart accessibilityLayer data={chartData}>
+                        <CartesianGrid vertical={false} />
+                        <XAxis
+                            dataKey="month"
+                            tickLine={false}
+                            tickMargin={10}
+                            axisLine={false}
+                            tickFormatter={(value) => value.slice(0, 3)}
+                        />
+                        <ChartTooltip content={<ChartTooltipContent />} />
+                        <ChartLegend content={<ChartLegendContent />} />
+                        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+                        <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+                    </BarChart>
+                </ChartContainer>
+            </Card>
        </>
     );
 }

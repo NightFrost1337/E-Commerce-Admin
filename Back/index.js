@@ -25,10 +25,14 @@ mongoose.connect(process.env.MONGO_URL)
 
 const base_route = '/api/v1';
 
-const meRoutes = require('./pages/me');
-const authRoutes = require('./pages/auth');
-app.use(base_route + '/me', meRoutes);
-app.use(base_route + '/auth', authRoutes);
+const meRouter = require('./routes/me');
+const authRouter = require('./routes/auth');
+const storeRouter = require('./routes/store');
+const authMiddleware = require('./middleware/auth');
+
+app.use(base_route + '/me', authMiddleware, meRouter);
+app.use(base_route + '/auth', authRouter);
+app.use(base_route + '/store', storeRouter);
 
 process
     .setMaxListeners(0)

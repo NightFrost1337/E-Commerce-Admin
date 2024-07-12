@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { BASE_API } from "../config.json";
+import { BASE_API } from "@/config.json";
 
 export default function Register() {
     const [datas, setDatas] = useState({ username: '', email: '', password: '', confirmPassword: '' });

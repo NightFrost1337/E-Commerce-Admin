@@ -9,7 +9,7 @@ export const UserContext = createContext({
 
 export function UserContextProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [shops, setShops] = useState(null);
+    const [shops, setShops] = useState([]);
 
     const updateUser = useMemo(() => (data) => setUser(data), []);
     const updateShops = useMemo(() => (data) => setShops(data), []);

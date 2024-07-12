@@ -3,25 +3,27 @@ import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { UserContext } from "@/helpers/contexts/User";
-import { BASE_API } from "../config.json";
+import { BASE_API } from "@/config.json";
 import Loader from "@/components/layout/Loader";
 import Layout from "@/components/layout";
-import Login from "@/pages/Login";
+import Login from "@/pages/(auth)/Login";
 
 export function useAuth() {
 	return useContext(UserContext);
 }
 
+const routes = ['dashboard', 'billsboard', 'categories', 'colors', 'orders', 'products', 'sizes'];
+
 export function AuthWrapper({ children }) {
-	const { user, updateUser } = useAuth();
+	const { user, updateUser, updateShops } = useAuth();
 	const location = useLocation();
 	const auth = localStorage.getItem('token');
 
-	const shouldFetchUser = (location.pathname.startsWith('/dash') || location.pathname.startsWith('/admin')) && auth && !(user && user.id);
+	const shouldFetchUser = routes.some(route => location.pathname === '/' + route) && auth && !(user && user.id);
 	const fetcher = (url) => fetch(url, { 
 		method: 'GET', 
-		headers: { Authorization: `${auth}` } 
-	}).then(response => response.json());
+		headers: { Authorization: auth }
+	}).then(response => response.json()).catch(() => null);
 	
 	const { isLoading } = useSWR(shouldFetchUser ? BASE_API + '/me' : null, fetcher, {
 		onSuccess: (data) => {
@@ -31,10 +33,18 @@ export function AuthWrapper({ children }) {
 		revalidateIfStale: false,
 		revalidateOnReconnect: false
 	});
+	useSWR(!isLoading && user?.id ? BASE_API + '/me/shops' : null, fetcher, {
+		onSuccess: (data) => {
+			if (Array.isArray(data)) updateShops(data);
+		},
+		revalidateOnFocus: false,
+		revalidateIfStale: false,
+		revalidateOnReconnect: false
+	});
 
 	// if (location.pathname.startsWith('/auth/') && auth) return window.location.replace('/dash/dashboard');
 
-	if (!location.pathname.startsWith('/dash') && !location.pathname.startsWith('/admin')) {
+	if (!routes.some(route => location.pathname === '/' + route)) {
 		return <>{children}</>;
 	}
 
