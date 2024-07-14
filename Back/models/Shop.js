@@ -5,7 +5,8 @@ const shopSchema = new Schema({
     name: String,
     ownerId: String,
     ownerName: String,
-    templateId: String
+    templateId: String,
+    products: Array 
 });
 
 module.exports = model('shop', shopSchema);

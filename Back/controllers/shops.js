@@ -4,7 +4,7 @@ const Shop = require('../models/Shop');
 const getShops = async (req, res) => {
     const shops = await Shop.find({ ownerId: req.user.id }) || [];
 
-    return res.status(200).json(shops.map(({ id, name, ownerId, ownerName, templateId }) => ({ id, name, ownerId, ownerName, templateId })));
+    return res.status(200).json(shops.map(({ id, name, ownerId, ownerName, templateId, products }) => ({ id, name, ownerId, ownerName, templateId, products })));
 }
 
 const createShop = async (req, res) => {

@@ -17,12 +17,22 @@ export default function Dashboard() {
                 <CreateShop />
             </div>
             <Separator />
-            {Array.isArray(shops) && shops.length ? <Dash shops={shops} /> : <div className="flex flex-col items-center justify-center mt-14 gap-4">
-                <img className="w-28" src='https://asset.zcache.be/assets/graphics/z4/stores/No_Store_300_Icon.png'></img>
-                <h2 className="font-bold text-2xl">No store</h2>
-                <span className="text-muted-foreground mb-4">You don't have any store at this time. Click between to create one.</span>   
-                <CreateShop />
-            </div>}
+            {Array.isArray(shops) && shops.length ? (
+                <Dash shops={shops} />
+            ) : (
+                <div className="flex flex-col items-center justify-center mt-14 gap-4">
+                    <img 
+                        className="w-28" 
+                        src='https://asset.zcache.be/assets/graphics/z4/stores/No_Store_300_Icon.png' 
+                        alt="No store"
+                    />
+                    <h2 className="font-bold text-2xl">No store</h2>
+                    <span className="text-muted-foreground mb-4">
+                        You don't have any store at this time. Click below to create one.
+                    </span>   
+                    <CreateShop />
+                </div>
+            )}
         </div>
     );
 }

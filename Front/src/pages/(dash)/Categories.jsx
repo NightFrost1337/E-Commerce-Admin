@@ -2,6 +2,7 @@ import React from 'react';
 import useSWR from 'swr';
 import Dash from '@/components/Dash';
 import CreateShop from '@/components/CreateShop';
+import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/useAuth";
 import { BASE_API } from "@/config.json";
 
@@ -19,7 +20,7 @@ export default function Categories() {
             <div className="flex flex-col justify-start h-screen">
                 <h1 className="text-3xl font-bold">Categories</h1>
                 <p className="mb-6">Welcome {user.username}</p>
-                <hr />
+                <Separator />
                 {Array.isArray(shops) && shops.length ? <Dash shops={shops} /> : <CreateShop />}
             </div>
        </>

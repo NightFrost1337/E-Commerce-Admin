@@ -1,8 +1,8 @@
 import React from 'react';
+import { fakeProducts } from '../../src/pages/[username]/[store]/index';
 import { useAuth } from "@/hooks/useAuth";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
-
 import {
   Card,
   CardContent,
@@ -30,8 +30,11 @@ const chartConfig = {
     },
 }
 
-export default function Dash() {
+
+export default function Dash({ shops }) {
     const { user } = useAuth();
+    console.log(fakeProducts.length);
+    const totalProducts = shops.reduce((total, shop) => total + (shop.products?.length || fakeProducts.length), 0);
 
     return (
         <>
@@ -68,7 +71,7 @@ export default function Dash() {
                         </div>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-3xl font-bold">5</p>
+                        <p className="text-3xl font-bold">{totalProducts}</p>
                     </CardContent>
                 </Card>
             </div>
@@ -93,6 +96,6 @@ export default function Dash() {
                     </BarChart>
                 </ChartContainer>
             </Card>
-       </>
+        </>
     );
 }
